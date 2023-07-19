@@ -1,38 +1,64 @@
+"""
+Main game launch file
+"""
+from enum import Enum
 from class_two_players import TwoPlayers
 from class_game_with_computer import GameWithComputer
-from enum import Enum
 
 
 class GameVariants(Enum):
-    one_player: str = "1"
-    two_player: str = "2"
+    """
+    Enumeration containing options for
+    playing with a computer or together
+    """
+    ONE_PLAYER: str = "1"
+    TWO_PLAYER: str = "2"
 
 
 class GameMenu:
+    """
+    Class for working with the menu
+    for choosing the type of game
+    """
+
     def __init__(self) -> None:
         self.load_game()
 
     def load_game(self) -> None:
-        game_selection_flag = GameVariants.one_player.value
+        """
+        Method to call the game menu
+        """
+        game_selection_flag = GameVariants.ONE_PLAYER.value
         while game_selection_flag in (
-            GameVariants.one_player.value,
-            GameVariants.two_player.value,
+            GameVariants.ONE_PLAYER.value,
+            GameVariants.TWO_PLAYER.value,
         ):
             game_selection_flag = self.enter_number()
             self.start_game(game_selection_flag)
 
     def enter_number(self) -> str:
-        print(
-            "Для игры с компьютером введите 1,"
-            + " для игры вдвоем введите 2, "
-            + "для выхода из игры нажмите любой другой символ:"
+        """
+        Method to get the game type flag from the player
+
+        Returns:
+            str: game mode flag
+        """
+        return input(
+            "Для игры с компьютером введите 1, \n"
+            + "для игры вдвоем введите 2, \n"
+            + "для выхода из игры нажмите любой другой символ: "
         )
-        return input()
 
     def start_game(self, game_selection_flag: str) -> None:
-        if game_selection_flag == GameVariants.one_player.value:
+        """
+        Method to launch the game mode that the user has selected
+
+        Args:
+            game_selection_flag (str): game mode selection flag
+        """
+        if game_selection_flag == GameVariants.ONE_PLAYER.value:
             GameWithComputer()
-        elif game_selection_flag == GameVariants.two_player.value:
+        elif game_selection_flag == GameVariants.TWO_PLAYER.value:
             TwoPlayers()
 
 
